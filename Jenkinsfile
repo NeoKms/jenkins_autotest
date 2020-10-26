@@ -3,7 +3,13 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'sudo pip3 install --user -H -r requirements.txt'
+                sh '/usr/local/bin/python3 -m venv --clear /home'
+            }
+            steps {
+                sh 'source /home/bin/activate'
+            }
+            steps {
+                sh 'pip3 install -r requirements.txt'
             }
         }
         stage('test') {
