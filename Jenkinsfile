@@ -11,7 +11,7 @@ pipeline {
                git branch: 'main', url: 'https://github.com/NeoKms/jenkins_autotest'
             }
         }
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'python --version'
                 sh 'python -c "import this"'
@@ -21,11 +21,17 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage ('test') {
+        stage ('Test') {
             steps {
                 sh 'cd app'
                 sh 'pytest'
             }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
         }
     }
 }
