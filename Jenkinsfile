@@ -29,8 +29,17 @@ pipeline {
         }
     }
     post {
-        always {
-            junit 'build/lib/**/*.xml'
+        unstable {
+            echo 'I am unstable :/'
+            mail to: 'upachko@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        failure {
+            echo 'I failed :('
+            mail to: 'upachko@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }
