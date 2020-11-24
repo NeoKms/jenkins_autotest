@@ -17,7 +17,6 @@ pipeline {
                 sh 'python -c "import this"'
                 sh '/usr/local/bin/python3 -m venv --clear /home'
                 sh 'pip install --upgrade pip'
-                sh 'pip get error'
                 sh 'pip install pytest'
                 sh 'pip install -r requirements.txt'
             }
